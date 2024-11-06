@@ -1,7 +1,4 @@
-# Update Operation
-
-**Command:**
-```python
-retrieved_book.title = "Nineteen Eighty-Four"
-retrieved_book.save()
-print(retrieved_book.title)
+# Update the title of the book 
+book.title = "Nineteen Eighty-Four"
+book.save()
+# Expected output: <Book: Nineteen Eighty-four>
