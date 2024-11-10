@@ -60,3 +60,35 @@ urlpatterns = [
     path('edit/<int:pk>/', views.edit_book, name='edit_book'),
     path('delete/<int:pk>/', views.delete_book, name='delete_book'),
 ]
+from django.urls import path, include
+
+urlpatterns = [
+    path('relationship_app/', include('relationship_app.urls')),
+    # Other app URLs
+]
+from django.urls import path
+from . import views
+from django.contrib.auth.views import LoginView, LogoutView
+
+urlpatterns = [
+    path('login/', LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
+    path('register/', views.register, name='register'),
+    # Other view URLs
+]
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('admin/', views.admin_view, name='admin_view'),
+    path('librarian/', views.librarian_view, name='librarian_view'),
+    path('member/', views.member_view, name='member_view'),
+]
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('relationship_app/', include('relationship_app.urls')),
+]
