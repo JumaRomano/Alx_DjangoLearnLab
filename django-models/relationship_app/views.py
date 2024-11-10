@@ -112,3 +112,8 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
+
+from django.contrib.auth.decorators import permission_required
+relationship_app.can_add_book
+elationship_app.can_change_book
+relationship_app.can_delete_book
