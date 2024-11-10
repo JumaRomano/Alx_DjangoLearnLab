@@ -51,3 +51,12 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
     path('register/', views.register, name='register'),
 ]
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('add/', views.add_book, name='add_book'),
+    path('edit/<int:pk>/', views.edit_book, name='edit_book'),
+    path('delete/<int:pk>/', views.delete_book, name='delete_book'),
+]
