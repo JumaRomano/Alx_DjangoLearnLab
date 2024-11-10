@@ -75,3 +75,40 @@ def is_member(user):
 @user_passes_test(is_member)
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
+
+from django.shortcuts import render
+from .models import Book
+
+# Function-based view to list all books
+def list_books(request):
+    books = Book.objects.all()
+    return render(request, 'relationship_app/list_books.html', {'books': books})
+
+from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView
+from .models import Library
+
+# Class-based view to show details of a specific library
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'relationship_app/library_detail.html'
+    context_object_name = 'library'
+
+    def get_queryset(self):
+        # Ensure that we're fetching libraries from the database
+        return Library.objects.all()
+
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+
+# Registration view (handles user registration)
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Redirect to login page after registration
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
