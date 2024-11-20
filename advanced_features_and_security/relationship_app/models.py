@@ -193,3 +193,4 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+# Custom permissions for controlling access to the Article model

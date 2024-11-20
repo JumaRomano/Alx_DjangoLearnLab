@@ -51,3 +51,21 @@ class CustomUserAdmin(UserAdmin):
     )
 
 admin.site.register(CustomUser, CustomUserAdmin)
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from myapp.models import Article
+
+def setup_groups():
+    content_type = ContentType.objects.get_for_model(Article)
+
+    permissions = {
+        "Viewers": ["can_view"],
+        "Editors": ["can_view", "can_edit", "can_create"],
+        "Admins": ["can_view", "can_create", "can_edit", "can_delete"],
+    }
+
+    for group_name, perm_names in permissions.items():
+        group, created = Group.objects.get_or_create(name=group_name)
+        for perm_name in perm_names:
+            permission = Permission.objects.get(codename=perm_name, content_type=content_type)
+            group.permissions.add(permission)
