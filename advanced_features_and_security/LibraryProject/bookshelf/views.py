@@ -45,3 +45,18 @@ def book_list(request):
 def books(request, book_id):
     book = get_object_or_404(Book, id=book_id)  # Fetch the specific book or raise a 404
     return render(request, 'bookshelf/book_detail.html', {'book': book})
+
+from django.shortcuts import render
+from .forms import ExampleForm
+
+def example_view(request):
+    if request.method == 'POST':
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            # Process the data
+            field_data = form.cleaned_data['field_name']
+            # Add your logic here
+    else:
+        form = ExampleForm()
+
+    return render(request, 'bookshelf/example_form.html', {'form': form})
