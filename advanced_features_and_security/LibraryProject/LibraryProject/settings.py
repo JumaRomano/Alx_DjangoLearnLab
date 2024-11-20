@@ -38,3 +38,9 @@ SECURE_BROWSER_XSS_FILTER = True  # Enable XSS protection in modern browsers
 # Debugging and Production Config
 DEBUG = False  # Ensure DEBUG is set to False in production
 ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']  # Add your domain(s)
+ # Secure proxy SSL header for deployments behind reverse proxies
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Explanation:
+# HTTP_X_FORWARDED_PROTO is a common header set by reverse proxies 
+# to indicate whether the original request was made via HTTP or HTTPS.
