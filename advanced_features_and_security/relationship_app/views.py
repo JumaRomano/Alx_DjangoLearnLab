@@ -77,3 +77,15 @@ def librarian_view(request):
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
+from django.shortcuts import render, get_object_or_404
+from .models import Book
+
+# Displays a list of all books
+def book_list(request):
+    books = Book.objects.all()  # Fetch all books from the database
+    return render(request, 'bookshelf/book_list.html', {'books': books})
+
+# Displays details for a single book
+def books(request, book_id):
+    book = get_object_or_404(Book, id=book_id)  # Fetch the specific book or raise a 404
+    return render(request, 'bookshelf/book_detail.html', {'book': book})
