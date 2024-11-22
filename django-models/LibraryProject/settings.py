@@ -124,3 +124,19 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Redirect users after login/logout
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+# Add 'relationship_app' to INSTALLED_APPS
+INSTALLED_APPS = [
+    ...
+    'relationship_app',
+]
+
+# Include Django’s built-in authentication middleware
+MIDDLEWARE = [
+    ...
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+]
