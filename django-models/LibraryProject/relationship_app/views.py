@@ -77,3 +77,11 @@ def librarian_view(request):
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
+from django.shortcuts import render, get_object_or_404
+from .models import Library
+
+# Example view for listing books in a library
+def library_books_view(request, library_id):
+    library = get_object_or_404(Library, id=library_id)
+    books = library.books.all()
+    return render(request, 'relationship_app/library_books.html', {'library': library, 'books': books})
