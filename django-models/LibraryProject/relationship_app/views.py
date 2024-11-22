@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import user_passes_test
 from .models import Book, Library
-
+from .models import Library
 # Function-based view to list all books
 def list_books(request):
     books = Book.objects.all()
@@ -85,3 +85,11 @@ def library_books_view(request, library_id):
     library = get_object_or_404(Library, id=library_id)
     books = library.books.all()
     return render(request, 'relationship_app/library_books.html', {'library': library, 'books': books})
+
+from django.views.generic.detail import DetailView
+from .models import Library
+
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'relationship_app/library_detail.html'
+    context_object_name = 'library'
