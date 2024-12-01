@@ -125,3 +125,4 @@ class BookListView(ListAPIView):
     search_fields = ['title', 'author__name']  # Fields for searching
     ordering_fields = ['title', 'publication_year']  # Fields for ordering
     ordering = ['title']  # Default ordering
+filters.OrderingFilter
