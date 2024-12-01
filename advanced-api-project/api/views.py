@@ -107,6 +107,7 @@ class BookListView(ListAPIView):
     filter_backends = [OrderingFilter]
     ordering_fields = ['title', 'publication_year']  # Fields that can be used for ordering
     ordering = ['title']  # Default ordering
+    filters.SearchFilter
 from rest_framework.filters import SearchFilter
 
 class BookListView(ListAPIView):
