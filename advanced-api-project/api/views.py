@@ -66,3 +66,34 @@ BookListView:
 - Allows text search on title and author name.
 - Supports ordering by title and publication year.
 """
+from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
+from .models import Book
+from .serializers import BookSerializer
+
+class BookCreateView(CreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class BookUpdateView(UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class BookDeleteView(DestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+from rest_framework.permissions import IsAuthenticated
+
+class BookCreateView(CreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
+
+class BookUpdateView(UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
+
+class BookDeleteView(DestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
