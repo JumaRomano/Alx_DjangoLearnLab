@@ -66,3 +66,46 @@ class BookAPITests(APITestCase):
         response = self.client.get(self.list_url, {'ordering': 'title'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('Test Book', str(response.data))
+from django.contrib.auth.models import User
+from rest_framework.test import APITestCase
+from rest_framework import status
+from api.models import Book
+
+class BookAPITests(APITestCase):
+    def setUp(self):
+        # Create a test user
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        
+        # Create sample data
+        self.book = Book.objects.create(title='Test Book', author='Test Author', publication_year=2023)
+        
+        # Define the API endpoints
+        self.list_url = '/api/books/'
+
+    def test_authenticated_access(self):
+        # Log in as the test user
+        self.client.login(username='testuser', password='testpassword')
+
+        # Make a GET request to the API
+        response = self.client.get(self.list_url)
+
+        # Assert that the response is successful
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    
+    def test_unauthenticated_access(self):
+        # Make a GET request without logging in
+        response = self.client.get(self.list_url)
+
+        # Assert that access is forbidden
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+from rest_framework.test import APIRequestFactory
+from rest_framework.authtoken.models import Token
+from api.views import BookListView
+
+factory = APIRequestFactory()
+user = User.objects.create_user(username='testuser', password='testpassword')
+token = Token.objects.create(user=user)
+
+request = factory.get('/api/books/')
+force_authenticate(request, user=user)
+response = BookListView.as_view()(request)
