@@ -28,3 +28,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),  # Add this line to include blog app URLs
 ]
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('tags/<str:tag_name>/', views.tagged_posts, name='tagged_posts'),
+    path('search/', views.search_posts, name='search_posts'),
+]

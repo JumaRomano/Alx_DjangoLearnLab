@@ -9,3 +9,16 @@ urlpatterns = [
     path('post/<int:pk>/edit/', views.PostUpdateView.as_view(), name='post_update'),
     path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
 ]
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('tags/<str:tag_name>/', views.tagged_posts, name='tagged_posts'),
+    path('search/', views.search_posts, name='search_posts'),
+]
+comment/<int:pk>/update/
+post/<int:pk>/comments/new/
+comment/<int:pk>/delete/
+post/<int:pk>/update/
+login/", "register/
+profile/
