@@ -65,3 +65,4 @@ class LikeUnlikePostView(APIView):
         else:
             like.delete()
             return Response({"detail": "Post unliked."}, status=status.HTTP_200_OK)
+generics.get_object_or_404(Post, pk=pk)
