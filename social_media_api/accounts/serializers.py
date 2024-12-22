@@ -40,3 +40,19 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         Token.objects.create(user=user)
         return user
+
+class UserLoginSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=255)
+    password = serializers.CharField(max_length=255, write_only=True)
+
+    def validate(self, data):
+        user = User.objects.filter(username=data['username']).first()
+        if user and user.check_password(data['password']):
+            return user
+        raise serializers.ValidationError({"username": "Invalid username or password."})
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'bio', 'profile_picture')
+        extra_kwargs = {'username': {'required': False}, 'email': {'required': False}}
