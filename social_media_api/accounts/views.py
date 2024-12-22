@@ -118,3 +118,6 @@ class UnfollowUserView(APIView):
                 return Response({'error': f'You are not following {user_to_unfollow.username}.'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': 'You cannot unfollow yourself.'}, status=status.HTTP_400_BAD_REQUEST)
+
+generics.GenericAPIView
+CustomUser.objects.all()
